@@ -1,0 +1,18 @@
+.set {
+    width: 100%;
+    min-height: 100vh;
+    background-image:linear-gradient(to bottom, rgba(13, 32, 201, 0.904), rgba(239, 238, 255, 0.411)),
+    url(cyber.jpg);    
+    background-size: cover;  
+    overflow: hidden;
+    margin: 0px;
+}
+.set2 {
+    width: 100%;
+    min-height: 100vh;
+    background-color:blue;
+    background-image:linear-gradient(to bottom,rgba(239, 238, 255, 0.411),rgba(13, 32, 201, 0.904));    
+    background-size: cover;  
+    overflow: hidden;
+    margin: 0px;
+}
