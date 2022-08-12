@@ -11,6 +11,15 @@
     width: 100%;
     min-height: 100vh;
     background-color:blue;
+    background-image:radial-gradient(rgba(13, 32, 201, 0.904),rgba(239, 238, 255, 0.411));    
+    background-size: cover;  
+    overflow: hidden;
+    margin: 0px;
+}
+.set3 {
+    width: 100%;
+    min-height: 100vh;
+    background-color:blue;
     background-image:linear-gradient(to bottom,rgba(239, 238, 255, 0.411),rgba(13, 32, 201, 0.904));    
     background-size: cover;  
     overflow: hidden;
