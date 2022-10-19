@@ -93,12 +93,12 @@
         searchJXN: function(){
           axios({
             methods: 'get',
-            url: 'https://www.jacksonms.gov/api/action_list',
+            url: 'https://www.jacksonms.gov/api/action/tag_show?id=contact',
             headers: {
-              'Authorization': '48d0bddf-6f20-4781-8f62-b004b4095c87'
+            //   'Authorization': '48d0bddf-6f20-4781-8f62-b004b4095c87',
             },
           }).then(response =>{
-            this.jacksonapi = JSON.parse(response.data)
+            this.jacksonapi = response.data
             console.log(this.jacksonapi)
           })
         }
