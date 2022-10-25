@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .forms import EntryForm
+from django.shortcuts import render, redirect
+from .forms import EntryForm, CreateUserForm
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 
 def myview(request):
@@ -20,3 +21,22 @@ def report(request):
  
     context['form']= form
     return render(request, 'report.html', context)
+
+def register(request):
+
+    form = CreateUserForm()
+
+    if request.method == "POST":
+
+        form = CreateUserForm(request.POST)
+
+        if form.is_valid():
+            
+            form.save()           
+
+            return redirect('/accounts/login/')
+
+
+    context = {'form':form}
+
+    return render(request, 'register.html', context=context)
