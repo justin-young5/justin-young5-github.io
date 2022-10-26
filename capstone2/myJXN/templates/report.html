@@ -1,3 +1,5 @@
+{% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,13 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    crossorigin=""></script>
 </head>
 <body>
-    {% load crispy_forms_tags %}
-    {% csrf_token %}
-    {% crispy form %}
-
+    <form action="{% url 'myJXN:report' %}" method="post" style="color: blue;">        
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Submit</button>
+    </form><br/><br/><br/><br/><br/>
+    <!-- leaflet map -->
+    <div id="map" style="height: 500px; width: cover;"></div>
+    <script src="{% static 'myJXN/report.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 </body>
 </html>
