@@ -1,19 +1,12 @@
  
+ 
+ let loc = document.getElementById("id_location");
 
-let loc = document.getElementById("id_location");
-let keys = document.querySelector(".calculator-keys");
-var info = JSON.parse('{{data|escapejs}}')
+ function update(x){
+    loc.value = x;
+};
 
-for(d in info){
-    console.log(d)
-}
-
-console.log(info)
-
-
-function update(x){
-    loc.value = x;}
-
+//leaflet js
 var map = L.map('map').setView([32.308, -90.194], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -35,4 +28,5 @@ function onMapClick(e) {
         
     }
 
-    map.on('click', onMapClick);
+map.on('click', onMapClick);
+

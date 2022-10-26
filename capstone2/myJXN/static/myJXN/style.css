@@ -1,5 +1,4 @@
-.body{
-    background-size: cover;
-    background: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% )no-repeat center center fixed;
+body{
+  background-image: linear-gradient(to right, #8360c3, #2ebf91);
     
   }
