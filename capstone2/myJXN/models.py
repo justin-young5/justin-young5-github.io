@@ -1,3 +1,6 @@
+from asyncio.windows_events import NULL
+from unittest.util import _MAX_LENGTH
+from xml.etree.ElementInclude import default_loader
 from django.db import models
 import datetime
 
@@ -21,8 +24,9 @@ class Type(models.Model):
         return self.priority
 
 class Entry(models.Model):
-    description = models.CharField(max_length=50)
+    description = models.TextField()
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
+    location = models.CharField(max_length=100, default=NULL)
     create = models.DateTimeField(auto_now= True)
 
     def __str__(self):

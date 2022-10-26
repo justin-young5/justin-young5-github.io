@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
+from .models import Entry
 from .forms import EntryForm, CreateUserForm
+from django.urls import reverse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
+from json import dumps
+from django.core import serializers
 
 def myview(request):
     context = {
@@ -10,33 +15,34 @@ def myview(request):
     return render(request, 'myJXN.html', context)
 
 def report(request):
-    context = {}
-        # create object of form
-    form = EntryForm(request.POST or None, request.FILES or None)
-     
-    # check if form data is valid
-    if form.is_valid():
-        # save the form data to model
-        form.save()
- 
-    context['form']= form
+    models = []
+    for entries in Entry.objects.all():
+        models.append(entries)
+    dataJSON = dumps(serializers.serialize('json',models))
+    print(models)    
+    if request.method == 'POST':
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = EntryForm()
+            return HttpResponseRedirect(reverse('myJXN:report'))
+    else:
+        form = EntryForm()
+    context = {
+        'form':form,
+        'data':dataJSON,
+    }
+    
     return render(request, 'report.html', context)
 
 def register(request):
-
     form = CreateUserForm()
-
     if request.method == "POST":
-
         form = CreateUserForm(request.POST)
-
-        if form.is_valid():
-            
-            form.save()           
+        if form.is_valid():            
+            form.save()       
 
             return redirect('/accounts/login/')
 
-
     context = {'form':form}
-
     return render(request, 'register.html', context=context)
