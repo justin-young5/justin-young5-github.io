@@ -26,7 +26,8 @@ class Type(models.Model):
 class Entry(models.Model):
     description = models.TextField()
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
-    location = models.CharField(max_length=100, default=NULL)
+    lat = models.CharField(max_length=100, default=NULL)
+    lon = models.CharField(max_length=100, default=NULL)
     create = models.DateTimeField(auto_now= True)
 
     def __str__(self):

@@ -16,7 +16,10 @@ class DetailEntry(generics.RetrieveUpdateDestroyAPIView):
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer
 
+def town(request):
+    return render(request, 'town.html')
 
+    
 def myview(request):
     context = {
         'message': 'Hello World!'

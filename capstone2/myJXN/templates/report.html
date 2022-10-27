@@ -51,18 +51,28 @@
                 }).then(response =>{
                     this.djangoapi = response.data
                     console.log(this.djangoapi[0])
-                    for(d in Object.entries(this.djangoapi)){
-                       
-
-                        console.log(d)
+                    for(let obj in this.djangoapi){
+                        let objlat = this.djangoapi[obj].lat;
+                        let objlon = this.djangoapi[obj].lon;
+                        let title = this.djangoapi[obj].description;
+                        objlat = parseFloat(objlat)
+                        objlon = parseFloat(objlon)
+                        var markerOptions = {
+                            title: "title",
+                            clickable: true,
+                        }
+                        var marker = L.marker([objlat, objlon], markerOptions);
+                        marker.addTo(map).bindPopup(`${title}`);
+                        console.log(`${this.djangoapi[obj].id} ${this.djangoapi[obj].description}`);
                     }
-                    
                 })
+                    
             },
+        },
             mapRefresh: function(){
                 map.panTO([32.308, -90.194])
             },
-        },
+        
         created: function(){
             this.loadAPI()
         },
