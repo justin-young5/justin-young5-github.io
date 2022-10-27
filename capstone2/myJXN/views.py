@@ -1,13 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import Entry
+from rest_framework import generics
 from .forms import EntryForm, CreateUserForm
 from django.urls import reverse
+from .serializers import EntrySerializer
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
-from json import dumps
-from django.core import serializers
 
+class ListEntry(generics.ListCreateAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
+
+
+class DetailEntry(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
+
+def town(request):
+    return render(request, 'town.html')
+
+    
 def myview(request):
     context = {
         'message': 'Hello World!'
@@ -18,7 +30,7 @@ def report(request):
     models = []
     for entries in Entry.objects.all():
         models.append(entries)
-    dataJSON = dumps(serializers.serialize('json',models))
+    
     print(models)    
     if request.method == 'POST':
         form = EntryForm(request.POST)
@@ -30,7 +42,6 @@ def report(request):
         form = EntryForm()
     context = {
         'form':form,
-        'data':dataJSON,
     }
     
     return render(request, 'report.html', context)
