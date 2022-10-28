@@ -26,6 +26,7 @@ class Type(models.Model):
 class Entry(models.Model):
     description = models.TextField()
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
+    picture = models.ImageField(upload_to='images/', null=True, blank=True)
     lat = models.CharField(max_length=100, default=NULL)
     lon = models.CharField(max_length=100, default=NULL)
     create = models.DateTimeField(auto_now= True)
