@@ -33,7 +33,7 @@ def report(request):
     
     print(models)    
     if request.method == 'POST':
-        form = EntryForm(request.POST)
+        form = EntryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             form = EntryForm()
