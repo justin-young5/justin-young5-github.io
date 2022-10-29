@@ -24,7 +24,9 @@ class Type(models.Model):
         return self.priority
 
 class Entry(models.Model):
-    description = models.TextField()
+    name = models.CharField(max_length=100, default='')
+    address = models.CharField(max_length=100, default=NULL)
+    description = models.CharField(max_length=200, default='')
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
     picture = models.ImageField(upload_to='images/', null=True, blank=True)
     lat = models.CharField(max_length=100, default=NULL)

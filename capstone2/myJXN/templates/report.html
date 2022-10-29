@@ -59,15 +59,14 @@
                         let objlon = this.djangoapi[obj].lon;
                         let title = this.djangoapi[obj].description;
                         let picture = this.djangoapi[obj].picture;
-                        console.log(picture)
                         objlat = parseFloat(objlat)
-                        objlon = parseFloat(objlon)
+                        objlon = parseFloat(objlon)                        
                         var markerOptions = {
                             title: this.djangoapi[obj].description,
                             clickable: true,
                         }
                         var marker = L.marker([objlat, objlon], markerOptions);
-                        marker.addTo(map).bindPopup(title + "<br/><img src=" + picture + " height='300' width='auto'/>");
+                        marker.addTo(map).bindPopup(title + "<br/><img src=" + picture + " height='300' width='auto'/>",{maxWidth: "auto"});
                         console.log(`${this.djangoapi[obj].id} ${this.djangoapi[obj].description}`);
                     }
                 })

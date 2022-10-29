@@ -11,6 +11,9 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = "__all__"
+        widgets = {'lat': forms.HiddenInput(), 'lon': forms.HiddenInput()}
+        
+
 
 class CreateUserForm(UserCreationForm):
 
