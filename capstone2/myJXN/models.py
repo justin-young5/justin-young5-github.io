@@ -25,7 +25,7 @@ class Type(models.Model):
 
 class Entry(models.Model):
     name = models.CharField(max_length=100, default='')
-    address = models.CharField(max_length=100, default=NULL)
+    address = models.CharField(max_length=300, default=NULL)
     description = models.CharField(max_length=200, default='')
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
     picture = models.ImageField(upload_to='images/', null=True, blank=True)

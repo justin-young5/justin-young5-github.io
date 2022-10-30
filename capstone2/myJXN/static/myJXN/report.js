@@ -2,7 +2,8 @@
  
  let loclat = document.getElementById("id_lat");
  let loclon = document.getElementById("id_lon");
- let des = document.getElementById("id_address")
+ let des = document.getElementById("id_address");
+ let name = document.getElementById("id_name");
 
 
 function update_lat(x){
@@ -13,6 +14,10 @@ function update_lon(x){
 };
 function update_des(x){
     des.value = x;
+}
+
+function update_name(x){
+    name.value=x;
 }
 
 //leaflet js
@@ -41,7 +46,29 @@ function onMapClick(e) {
                             let c = clickobj['display_name']
                             update_des(c)
                             popup.setContent(c.toString())
-
+                            if(clickobj['address']['building'] != undefined){
+                                let a = clickobj['address']['building']
+                                update_name('')
+                                update_name(a)
+                            }
+                            else if(clickobj['address']['shop'] != undefined){
+                                let a = clickobj['address']['shop']
+                                update_name('')
+                                update_name(a)
+                            }
+                            else if(clickobj['address']['amenity'] != undefined){
+                                let a = clickobj['address']['amenity']
+                                update_name('')
+                                update_name(a)
+                            } 
+                            else if(clickobj['address']['tourism'] != undefined){
+                                let a = clickobj['address']['tourism']
+                                update_name('')
+                                update_name(a)
+                            }                            
+                            else{update_name('')}
+                                
+                            
                             console.log(clickobj)
                         })
         

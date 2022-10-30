@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'dist/css/events.css' %}" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+            <div class="col-12 col-sm-8 col-lg-5">
+                <h6 class="text-muted">List Group with Images</h6> 
+                <ul class="list-group" v-for="os in nobj">
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div class="flex-column">
+                    ${os.description}
+                    <p><small>by Miguel de Cervantes</small></p>
+                    <span class="badge badge-info badge-pill"> 2 Copies in Stock</span>
+                    </div>
+                    <div class="image-parent">
+                        
+                    </div>
+                </a>
+                </ul>
+            </div>
+            <div class="col-12 col-sm-8 col-lg-5">
+                <h6 class="text-muted">List Group with Images</h6> 
+                <ul class="list-group" >
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div class="flex-column">
+                    
+                    <p><small>by Miguel de Cervantes</small></p>
+                    <span class="badge badge-info badge-pill"> 2 Copies in Stock</span>
+                    </div>
+                    <div class="image-parent">
+                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/don_quixote.jpg" class="img-fluid" alt="quixote">
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div class="flex-column">
+                    As I Lay Dying 
+                    <p><small>by William Faulkner</small></p>
+                    <span class="badge badge-primary badge-pill"> 5 Copies in Stock</span>
+                    </div>
+                    <div class="image-parent">
+                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/as_I_lay.jpg" class="img-fluid" alt="lay">
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center disabled">  
+                    <div class="flex-column">
+                    Things Fall Apart
+                    <p><small>by Miguel de Cervantes</small></p>
+                    <span class="badge badge-danger badge-pill"> 0 Copies in Stock</span>
+                    </div>
+                    <div class="image-parent">
+                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/things_fall_apart.jpg" class="img-fluid" alt="things">
+                    </div>
+                </a>
+                </ul>
+            </div>
+            </div>
+        </div>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script>
+        let app = new Vue({
+        el: '#app',
+        delimiters: ['${','}'],
+        data:{
+            message: 'hello world!',
+            djangoapi: [],
+            nobj: ''
+        },
+        methods:{
+            sayHello: function(){
+                console.log(this.message)
+            },
+            loadAPI: function(){
+                axios({
+                    methods: 'get',
+                    url: 'http://127.0.0.1:8000/myJXN/v1/',
+                }).then(response =>{
+                    this.djangoapi = response.data;                    
+                    for(let obj in this.djangoapi){
+                        let nobj = this.djangoapi[obj]
+                        console.log(nobj['description'])
+                    }
+                    })
+                
+                    
+            },
+        },
+ 
+        
+        created: function(){
+            this.loadAPI()
+        },
+    })
+    </script>
+</body>
+</html>

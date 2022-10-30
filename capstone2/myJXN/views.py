@@ -19,6 +19,9 @@ class DetailEntry(generics.RetrieveUpdateDestroyAPIView):
 def town(request):
     return render(request, 'index.html')
 
+def events(request):
+    return render(request, 'events.html')
+
     
 def myview(request):
     context = {
