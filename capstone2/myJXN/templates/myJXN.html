@@ -1,125 +1,94 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>    
-    <link rel="stylesheet" href="{% static 'myJXN/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-    crossorigin=""/>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-    crossorigin=""></script>
-</head>
-<body>
-  <div id="app">
-    
-    <nav class="navbar navbar-expand-lg bg-dark fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand mx-auto" href="#">myJXN</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/login/">
-                {% if user.is_authenticated %}
-                Logged In As: {{user.username}}
-                {% else %}
-                Login/Register 
-                {% endif %}
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    <span>${message}</span>
-    
-    <img src="{% static 'myJXN/jackson.jpg' %}" v-on:click='searchJXN'/>
-    <div class="container text-center">
-      <div class="row">
-        <div class="col">
-          <img src="{% static 'myJXN/welcome.jpg' %}" style="height: 300px; width:auto"/><br/>
-          <h2>WHAT WE DO</h2>
-          
-        </div>
-        <div class="col">
-          Column
-        </div>
-        <div class="col">
-          Column
-        </div>
-      </div>
-    </div>
-    <!-- leaflet map -->
-    <div id="map" style="height: 500px; width: 500px;"></div>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>myJXN - Home Page</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'dist/assets/favicon.ico' %}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'dist/css/styles.css' %}" rel="stylesheet" />
 
-  </div>
-
-  <script>
-    // vue js
-    let app = new Vue({
-      el: '#app',
-      delimiters: ['${','}'],
-      data:{
-        message: 'hello world!',
-        jackson_url: 'capstone\myJXN\templates\myJXN.html',
-        jacksonapi: [],
-      },
-      methods:{
-        sayHello: function(){
-          console.log(this.message)
-        },
-        searchJXN: function(){
-          axios({
-            methods: 'get',
-            url: 'https://www.jacksonms.gov/api/action/tag_show?id=contact',
-            headers: {
-            //   'Authorization': '48d0bddf-6f20-4781-8f62-b004b4095c87',
-            },
-          }).then(response =>{
-            this.jacksonapi = response.data
-            console.log(this.jacksonapi)
-          })
-        }
-      },
-      created: {}
-    })
-    
-    //leaflet js 
-    var map = L.map('map').setView([32.308, -90.194], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-</body>
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!">my JXN</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/login">
+                          {% if user.is_authenticated %}
+                          Logged In As: {{user}}
+                          {% else %}
+                          Not Logged In
+                          {% endif %}
+                        </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/logout">Log Out</a></li>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'dist/assets/welcome.webp' %}" alt="..." /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">myJXN</h1>
+                    <p>This is a site for Jacksonian's to come together and connect.  Together we can use this site as a commnity to report all sorts of things. Events, hazards (like those pot holes!) and youth programs are just the begining of the information we can share with each other.  Help us become a stronger community through comunicating with one another and speading information.</p>
+                    <a class="btn btn-primary" href="{% url 'myJXN:report'%}">Report an Event</a>
+                </div>
+            </div>
+            <!-- Call to Action-->
+            <div class="card text-white bg-secondary my-5 py-4 text-center">
+                <div class="card-body"><p class="text-white m-0">“To understand the world, you must first understand a place like Mississippi.” ~ William Faulkner</div>
+            </div>
+            <!-- Content Row-->
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100">
+                        <img src="{% static 'dist/assets/helping.jpg' %}" style="height: 200px;"/>
+                        <div class="card-body">
+                            <h2 class="card-title">City Resources</h2>
+                            <p class="card-text">Jackson's best resource is its people. We have leaders who are there to help and guide us with all sorts of difficulties. Click below to find helpful links to the resources our city government provides.</p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="https://www.jacksonms.gov/">City of Jackson</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100">
+                        <img src="{% static 'dist/assets/jackson_25_us.jpg' %}" style="height: 200px;"/>
+                        <div class="card-body">
+                            <h2 class="card-title">Login or Create Account</h2>
+                            <p class="card-text">Keep connected by creating an account. Use the site and enter your personal information to spread awareness to others in Jackson. Feel free to stay anonymouse and add information also.</p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="/accounts/login">Login or Create Account</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100">
+                      <img src="{% static 'dist/assets/planet.jpg' %}" style="height: 200px;">
+                        <div class="card-body">
+                            <h2 class="card-title">Card Three</h2>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'dist/js/scripts.js' %}"></script>
+    </body>
 </html>

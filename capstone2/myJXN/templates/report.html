@@ -60,8 +60,13 @@
                         let title = this.djangoapi[obj].description;
                         let picture = this.djangoapi[obj].picture;
                         objlat = parseFloat(objlat)
-                        objlon = parseFloat(objlon)                        
+                        objlon = parseFloat(objlon)    
+                        var buildingIcon = L.icon({
+                            iconUrl: '{% static "dist/assets/building.png" %}',
+                            iconSize: [20, 20]
+                        })                    
                         var markerOptions = {
+                            icon: buildingIcon,
                             title: this.djangoapi[obj].description,
                             clickable: true,
                         }
