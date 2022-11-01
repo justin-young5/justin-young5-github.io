@@ -20,7 +20,14 @@ def town(request):
     return render(request, 'index.html')
 
 def events(request):
-    return render(request, 'events.html')
+    models = []
+    for entries in Entry.objects.all():
+        models.append(entries)
+    context = {
+        "models":models,
+
+    }
+    return render(request, 'events.html', context)
 
     
 def myview(request):

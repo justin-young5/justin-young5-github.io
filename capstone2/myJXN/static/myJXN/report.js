@@ -48,24 +48,29 @@ function onMapClick(e) {
                             popup.setContent(c.toString())
                             if(clickobj['address']['building'] != undefined){
                                 let a = clickobj['address']['building']
-                                update_name('')
+                               
                                 update_name(a)
                             }
                             else if(clickobj['address']['shop'] != undefined){
                                 let a = clickobj['address']['shop']
-                                update_name('')
+                                
                                 update_name(a)
                             }
                             else if(clickobj['address']['amenity'] != undefined){
                                 let a = clickobj['address']['amenity']
-                                update_name('')
+                                
                                 update_name(a)
                             } 
                             else if(clickobj['address']['tourism'] != undefined){
                                 let a = clickobj['address']['tourism']
-                                update_name('')
+                                
                                 update_name(a)
-                            }                            
+                            }
+                            else if(clickobj['address']['leisure'] != undefined){
+                                let a = clickobj['address']['leisure']
+                                
+                                update_name(a)
+                            }                             
                             else{update_name('')}
                                 
                             
