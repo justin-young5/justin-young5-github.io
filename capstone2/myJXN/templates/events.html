@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'dist/css/events.css' %}" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            {% for m in models %}
+            <ul>
+                {% if m.event.priority == 'Hazard' %}
+                <li>
+                    
+                    {{m}}
+                    
+                </li>
+                {% endif %}
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script>
+        let app = new Vue({
+        el: '#app',
+        delimiters: ['${','}'],
+        data:{
+            message: 'hello world!',
+            djangoapi: [],
+            nobj: ''
+        },
+        methods:{
+            sayHello: function(){
+                console.log(this.message)
+            },
+            loadAPI: function(){
+                axios({
+                    methods: 'get',
+                    url: 'http://127.0.0.1:8000/myJXN/v1/',
+                }).then(response =>{
+                    this.djangoapi = response.data;                    
+                    for(let obj in this.djangoapi){
+                        let nobj = this.djangoapi[obj]
+                        console.log(nobj['description'])
+                    }
+                    })
+                
+                    
+            },
+        },
+ 
+        
+        created: function(){
+            this.loadAPI()
+        },
+    })
+    </script>
+</body>
+</html>

@@ -11,10 +11,12 @@ class Type(models.Model):
     COMMUNITY = 'Community Event'
     HAZARD = 'Hazard'
     IMFORMATION = 'Information'
+    BUILDING = 'Building'
     choice = (
     (COMMUNITY,'Community Event'),
     (HAZARD,'Hazard'),
-    (IMFORMATION,'Information'),)
+    (IMFORMATION,'Information'),
+    (BUILDING, 'Building'))
     priority = models.CharField(
         max_length=20,
         choices = choice
@@ -24,7 +26,9 @@ class Type(models.Model):
         return self.priority
 
 class Entry(models.Model):
-    description = models.TextField()
+    name = models.CharField(max_length=100, default='')
+    address = models.CharField(max_length=300, default=NULL)
+    description = models.CharField(max_length=200, default='')
     event = models.ForeignKey(Type, on_delete=models.RESTRICT)
     picture = models.ImageField(upload_to='images/', null=True, blank=True)
     lat = models.CharField(max_length=100, default=NULL)
@@ -32,4 +36,4 @@ class Entry(models.Model):
     create = models.DateTimeField(auto_now= True)
 
     def __str__(self):
-        return self.description + " " + f'{self.event}' + " " + f'{self.create}'
+        return self.name + " " + f'{self.address}' + " " + f'{self.description}' + " " + f'{self.event}'

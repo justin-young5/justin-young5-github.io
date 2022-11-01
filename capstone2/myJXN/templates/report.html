@@ -59,15 +59,60 @@
                         let objlon = this.djangoapi[obj].lon;
                         let title = this.djangoapi[obj].description;
                         let picture = this.djangoapi[obj].picture;
-                        console.log(picture)
                         objlat = parseFloat(objlat)
-                        objlon = parseFloat(objlon)
-                        var markerOptions = {
+                        objlon = parseFloat(objlon)   
+                         console.log(this.djangoapi[obj].event)
+                        var buildingIcon = L.icon({
+                            iconUrl: '{% static "dist/assets/building.png" %}',
+                            iconSize: [20, 20]
+                        }) 
+                        var informationIcon = L.icon({
+                            iconUrl: '{% static "dist/assets/information.png" %}',
+                            iconSize: [20, 20]
+                        })
+                        var hazardIcon = L.icon({
+                            iconUrl: '{% static "dist/assets/hazard.png" %}',
+                            iconSize: [20, 20]
+                        })   
+                        var communityIcon = L.icon({
+                            iconUrl: '{% static "dist/assets/community.png" %}',
+                            iconSize: [20, 20]
+                        })
+                        if(this.djangoapi[obj].event == 1){
+                            var markerOptions = {
+                            icon: communityIcon,
                             title: this.djangoapi[obj].description,
                             clickable: true,
                         }
+                        }
+                        if(this.djangoapi[obj].event == 2){
+                            var markerOptions = {
+                            icon: hazardIcon,
+                            title: this.djangoapi[obj].description,
+                            clickable: true,
+                        }
+                        }
+                        if(this.djangoapi[obj].event == 3){
+                            var markerOptions = {
+                            icon: informationIcon,
+                            title: this.djangoapi[obj].description,
+                            clickable: true,
+                        }
+                        }
+                        if(this.djangoapi[obj].event == 4){
+                            var markerOptions = {
+                            icon: buildingIcon,
+                            title: this.djangoapi[obj].description,
+                            clickable: true,
+                        }
+                        }
+                        // var markerOptions = {
+                            
+                        //     title: this.djangoapi[obj].description,
+                        //     clickable: true,
+                        // }
                         var marker = L.marker([objlat, objlon], markerOptions);
-                        marker.addTo(map).bindPopup(title + "<br/><img src=" + picture + " height='300' width='auto'/>");
+                        marker.addTo(map).bindPopup(title + "<br/><img src=" + picture + " height='300' width='auto'/>",{maxWidth: "auto"});
                         console.log(`${this.djangoapi[obj].id} ${this.djangoapi[obj].description}`);
                     }
                 })

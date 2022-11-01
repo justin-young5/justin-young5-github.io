@@ -11,4 +11,5 @@ urlpatterns = [
     path('v1/', ListEntry.as_view()),
     path('v1/<int:pk>/', DetailEntry.as_view()),
     path('town/', views.town, name='town'),
+    path('events/', views.events, name='events'),
 ]

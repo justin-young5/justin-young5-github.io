@@ -17,7 +17,17 @@ class DetailEntry(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EntrySerializer
 
 def town(request):
-    return render(request, 'town.html')
+    return render(request, 'index.html')
+
+def events(request):
+    models = []
+    for entries in Entry.objects.all():
+        models.append(entries)
+    context = {
+        "models":models,
+
+    }
+    return render(request, 'events.html', context)
 
     
 def myview(request):
