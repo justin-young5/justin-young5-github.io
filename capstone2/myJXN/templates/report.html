@@ -20,16 +20,71 @@
 </head>
 <body>    
     <div id="app">
-        <form action="{% url 'myJXN:report' %}" method="post" style="color: blue;" enctype="multipart/form-data">        
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit">Submit</button>
-        </form><br/><br/>
-        
-        
-        <br/><br/><br/>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!">my JXN</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/report/">Report</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/events">Events</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/login">
+                          {% if user.is_authenticated %}
+                          Logged In As: {{user}}
+                          {% else %}
+                          Not Logged In
+                          {% endif %}
+                        </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/accounts/logout">Log Out</a></li>
+                </div>
+            </div>
+        </nav>
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">                    
+                    <div class="card-body">
+                        <h2 class="card-title">Report an Event</h2>
+                        <form action="{% url 'myJXN:report' %}" method="post" style="color: blue;" enctype="multipart/form-data">        
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="/myJXN/">Back Home</a></div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Entry Information</h2>
+                        <p class="card-text">
+                            <b>Name:</b> Enter a name for the event, this will auto update if map pulls location data.<br/>
+                            <b>Address:</b> This will update on its own an pull based off where you click on the map.<br/>
+                            <b>Description:</b> Enter main information here. If its an event include dates and times!<br/>
+                            <b>Picture:</b> Upload a picture of hazards you've spotted or the event flyer if there is one.<br/>
+                        </p>
+                    </div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="/myJXN/events/">Current Events</a></div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Look Around!</h2>
+                        <p class="card-text">
+                            Browse the events below on the map and see whats going on in our area!<br/>
+                            Want to add an event or report an issue? Click on the location the event took place on the map, and then enter the appropriate data.<br/>
+                            Tell people in our community we need input. We have enough maps of known landmarks in our city. We're looking for commnity events to spread knowledge to others in our area. Pick up basket ball games, after school programs or gatherings, we want to see them all. Get to reporting y'all.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
         <!-- leaflet map -->
-        <div id="map" style="height: 500px; width: cover;"></div>       
+        <div id="map" style="height: 500px; width: cover;"></div> 
+        <div>hello</div>      
     </div>
     
     <script>
@@ -59,6 +114,9 @@
                         let objlon = this.djangoapi[obj].lon;
                         let title = this.djangoapi[obj].description;
                         let picture = this.djangoapi[obj].picture;
+                        if(picture == null){
+                            picture = '{% static "dist/assets/notavail.png" %}'
+                        }
                         objlat = parseFloat(objlat)
                         objlon = parseFloat(objlon)   
                          console.log(this.djangoapi[obj].event)
@@ -112,8 +170,8 @@
                         //     clickable: true,
                         // }
                         var marker = L.marker([objlat, objlon], markerOptions);
-                        marker.addTo(map).bindPopup(title + "<br/><img src=" + picture + " height='300' width='auto'/>",{maxWidth: "auto"});
-                        console.log(`${this.djangoapi[obj].id} ${this.djangoapi[obj].description}`);
+                        marker.addTo(map).bindPopup(title +" "+ `ID: ${this.djangoapi[obj].id}` + "<br/><img src=" + picture + " height='300' width='auto'/>",{maxWidth: "auto"});
+                        console.log(`${this.djangoapi[obj].id} ${this.djangoapi[obj].description} ${this.djangoapi[obj].picture}`);
                     }
                 })
                     
