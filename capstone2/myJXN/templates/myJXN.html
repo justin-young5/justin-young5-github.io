@@ -21,7 +21,9 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/report/">Report</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/myJXN/events">Events</a></li>
                         <li class="nav-item"><a class="nav-link" href="/accounts/login">
                           {% if user.is_authenticated %}
                           Logged In As: {{user}}
@@ -40,7 +42,7 @@
                 <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'dist/assets/welcome.webp' %}" alt="..." /></div>
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">myJXN</h1>
-                    <p>This is a site for Jacksonian's to come together and connect.  Together we can use this site as a commnity to report all sorts of things. Events, hazards (like those pot holes!) and youth programs are just the begining of the information we can share with each other.  Help us become a stronger community through comunicating with one another and speading information.</p>
+                    <p>This is a site for Jacksonian's to come together and connect.  Use this site to report community information and all sorts of things. Events, hazards (like those pot holes!) and youth programs are just the beginning of the information we can share with each other.  Help us become a stronger community through communicating with one another and spreading information.</p>
                     <a class="btn btn-primary" href="{% url 'myJXN:report'%}">Report an Event</a>
                 </div>
             </div>
@@ -74,10 +76,10 @@
                     <div class="card h-100">
                       <img src="{% static 'dist/assets/planet.jpg' %}" style="height: 200px;">
                         <div class="card-body">
-                            <h2 class="card-title">Card Three</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                            <h2 class="card-title">Current Events</h2>
+                            <p class="card-text">This is user inputed data that is current. Each time you or another person reports any events they will be posted here in a readable format.</p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
+                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="/myJXN/events">Events</a></div>
                     </div>
                 </div>
             </div>

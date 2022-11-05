@@ -4,6 +4,7 @@
  let loclon = document.getElementById("id_lon");
  let des = document.getElementById("id_address");
  let name = document.getElementById("id_name");
+ let pid = document.getElementsByClassName("leaflet-popup-content");
 
 
 function update_lat(x){
@@ -71,11 +72,13 @@ function onMapClick(e) {
                                 
                                 update_name(a)
                             }                             
-                            else{update_name('')}
-                                
+                            else{update_name('')}                            
                             
-                            console.log(clickobj)
+                            
+                            
                         })
+            
+                
         
     }
 
